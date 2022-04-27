@@ -26,6 +26,7 @@ class Send_email extends CI_Controller
 
         // Load library email dan konfigurasinya
         $this->load->library('email', $config);
+        $this->email->initialize($config);
 
         // Email dan nama pengirim
         $this->email->from('rofinaaulia11@gmail.com', 'Aulia');
