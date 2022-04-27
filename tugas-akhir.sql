@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2022 at 12:20 PM
+-- Generation Time: Apr 25, 2022 at 10:14 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -44,9 +44,10 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `name`, `email`, `image`, `password`, `role_id`, `is_active`, `date_created`) VALUES
 (1, 'fina', 'fina@gmail.com', 'default.jpg', '$2y$10$dkRX9v.0IdO7ktiJxWB/iu6rWHZzqelel276pin1vAr6PI9KSvty6', 2, 1, 1648996420),
-(4, 'Auliarfn', 'Aulirfn@gmail.com', 'default.jpg', '$2y$10$iAbtwEwoqngqz5olCOu/ou2heVwFHrMH4TqwO17jEIDqzvn629gUO', 1, 1, 1649753367),
+(4, 'Auliarfn', 'Aulirfn@gmail.com', '59679694_2347160115560809_8615652968827171781_n1.jpg', '$2y$10$dLAmv2.G6NtfRZt853qT2.OejGvevc1uGh9HF1k.l5tmHTEoIzYzO', 1, 1, 1649753367),
 (5, 'test', 'test@test.com', 'default.jpg', '$2y$10$mLa4AiBMTUeQ6.yZRfPRD.FI2BG6cz95LSsqGiqhvMr3JyABy5ecW', 2, 1, 1649855943),
-(6, 'ageng', 'ageng@gmail.com', 'default.jpg', '$2y$10$ja3YBcufFSkV6J5npMIblOsb/3mlQeKjim.YgsfufqpCa5ZyN1tly', 2, 1, 1649857791);
+(6, 'ageng', 'ageng@gmail.com', 'default.jpg', '$2y$10$ja3YBcufFSkV6J5npMIblOsb/3mlQeKjim.YgsfufqpCa5ZyN1tly', 2, 1, 1649857791),
+(7, 'Rofina Aulia', 'rofinaaulia@gmail.com', 'default.jpg', '$2y$10$vWm.rZ2X8jLF9g56OzSRHOFPfCQ4c/Ihr7Ahb2X5Ku5pkEcZdJVBq', 1, 1, 1650867972);
 
 -- --------------------------------------------------------
 
@@ -133,12 +134,13 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (2, 2, 'My Profile', 'user', 'fas fa-fw fa-user', 1),
 (4, 3, 'Menu Management', 'menu', 'fas fa-fw fa-folder', 1),
 (5, 3, 'Submenu Management', 'menu/submenu', 'fas fa-fw fa-folder-open', 1),
-(7, 1, 'Laporan', 'Laporan/admin', 'fas fa-fw fa-book', 1),
-(8, 2, 'Edit Profile', 'user/edit profile', 'fas fa-fw fa-user-edit', 1),
-(9, 2, 'Survei', 'Survei/user', 'fas fa-fw fa-file-signature', 1),
-(10, 1, 'Settings', 'Setting/admin', 'fas fa-fw fa-cog', 1),
-(11, 2, 'Kritik dan Saran', 'Kritik dan Saran/user', 'fas fa-fw fa-comments', 1),
-(12, 1, 'Role', 'Role/admin', 'fas fa-fw fa-user-tie', 1);
+(7, 1, 'Laporan', 'admin/laporan', 'fas fa-fw fa-book', 1),
+(8, 2, 'Edit Profile', 'user/edit', 'fas fa-fw fa-user-edit', 1),
+(9, 2, 'Survei', 'user/survei', 'fas fa-fw fa-file-signature', 1),
+(10, 1, 'Settings', 'admin/setting', 'fas fa-fw fa-cog', 1),
+(11, 2, 'Kritik dan Saran', 'user/kritik_dan_saran', 'fas fa-fw fa-comments', 1),
+(14, 1, 'Role', 'admin/role', 'fas fa-fw fa-user-tie', 1),
+(15, 2, 'Change Password', 'user/changepassword', 'fas fa-fw fa-key', 1);
 
 --
 -- Indexes for dumped tables
@@ -182,7 +184,7 @@ ALTER TABLE `user_sub_menu`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user_access_menu`
@@ -206,7 +208,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

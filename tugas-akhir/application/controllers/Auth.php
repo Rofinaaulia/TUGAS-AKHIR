@@ -10,6 +10,9 @@ class Auth extends CI_Controller
     }
     public function index()
     {
+        if ($this->session->userdata('email')) {
+            redirect('user');
+        }
 
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
@@ -71,6 +74,10 @@ class Auth extends CI_Controller
 
     public function registration()
     {
+        if ($this->session->userdata('email')) {
+            redirect('user');
+        }
+
         $this->form_validation->set_rules('name', 'Name', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
             'is_unique' => 'this email has already registered!'
@@ -106,11 +113,42 @@ class Auth extends CI_Controller
             // exit;
 
             $this->db->insert('user', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Congratulation! yaur account has been
-            created. Please Login</div>');
-            redirect(base_url('auth'));
+
+            //$this->_sendEmail();
+
+            //$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Congratulation! yaur account has been
+            //created. Please Login</div>');
+            //redirect(base_url('auth'));
         }
     }
+
+    // private function _sendEmail()
+    // {
+    // $config = [
+    //   'protocol'  => 'smtp',
+    // 'smtp_host' => 'ss://smtp.googlemail.com',
+    // 'smtp_user' => 'rofinaaulia11@gmail.com',
+    // 'smtp_pass' => '321321',
+    // 'smtp_port' => 25,
+    // 'mailtype'  => 'html',
+    // 'charset'   => 'utf-8',
+    // 'newline'   => "\r\n"
+    // ];
+
+    // $this->load->library('email', $config);
+
+    // $this->email->from('rofinaaulia11@gmail.com', 'Rofina Aulia');
+    //  $this->email->to('auliarofina11@gmail.com');
+    // $this->email->subject('Testing Tugas Akhir');
+    // $this->email->message('Seng Penting Yakin!');
+
+    // if ($this->email->send()) {
+    //   return true;
+    // } else {
+    // echo $this->email->print_debugger();
+    // die;
+    // }
+    // }
 
 
 
@@ -127,5 +165,39 @@ class Auth extends CI_Controller
     public function blocked()
     {
         $this->load->view('auth/blocked');
+    }
+
+
+    public function forgotpassword()
+    {
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+
+        if ($this->form_validation->run()  == false) {
+            $data['title'] = 'Forgot Password';
+            $this->load->view('templates/auth_header', $data);
+            $this->load->view('auth/forgot-password');
+            $this->load->view('templates/auth_footer');
+        } else {
+            $email = $this->input->post('email');
+            $user = $this->db->get_where('user', ['email' => $email, 'is_active' => 1])->row_array();
+
+            if ($user) {
+                $token = base64_encode(random_bytes(32));
+                $user_token = [
+                    'email' => $email,
+                    'token' => $token,
+                    'date_created' => time()
+                ];
+
+                $this->db->insert('user_token', $user_token);
+                // $this->_sendEmail($token, 'forgot');
+
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Please chek your email to reset your password!</div>');
+                redirect(base_url('auth/forgotpassword'));
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Email is not registration or activated!</div>');
+                redirect(base_url('auth/forgotpassword'));
+            }
+        }
     }
 }
